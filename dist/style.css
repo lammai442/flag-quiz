@@ -1,0 +1,34 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.wrapper {
+	display: grid;
+	place-content: center;
+	height: 100vh;
+}
+
+.welcome__box {
+	padding: 1rem;
+	background-color: #96c06f;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+.welcome__play-btn {
+	background-color: transparent;
+	border: none;
+	padding: 1rem;
+	cursor: pointer;
+}
+
+.gamefield__box {
+	display: none;
+}
+
+.d-none {
+	display: none;
+}

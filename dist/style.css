@@ -10,6 +10,17 @@
 	height: 100vh;
 }
 
+.background-flag {
+	background-image: url('../dist/assets/images/world-map.png');
+	width: 100vw;
+	height: 100vh;
+	background-size: contain;
+	position: absolute;
+	z-index: -1;
+	opacity: 0.8;
+	filter: blur(2px);
+}
+
 .welcome__box {
 	padding: 1rem;
 	background-color: #96c06f;
@@ -18,8 +29,12 @@
 	flex-direction: column;
 }
 
+.welcome__title {
+	color: #1d2b1f;
+}
+
 .welcome__play-btn {
-	background-color: transparent;
+	background-color: #f4a261;
 	border: none;
 	padding: 1rem;
 	cursor: pointer;

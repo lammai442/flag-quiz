@@ -4,6 +4,27 @@
 	box-sizing: border-box;
 }
 
+:root {
+	--color-bg-primary: #96c06f;
+	--color-bg-card: #ffffff;
+	--color-bg-section: #edf3e6;
+
+	--color-text: #1d2b1f;
+	--color-text-light: #ffffff;
+
+	--color-btn-primary: #5b8c38;
+	--color-btn-primary-hover: #4e7a2f;
+	--color-btn-secondary: #f4a261;
+	--color-btn-secondary-hover: #e68945;
+
+	--color-success: #3a7d44;
+	--color-error: #d62828;
+}
+
+button:active {
+	transform: scale(0.98);
+}
+
 .wrapper {
 	display: grid;
 	place-content: center;
@@ -18,12 +39,12 @@
 	position: absolute;
 	z-index: -1;
 	opacity: 0.8;
-	filter: blur(2px);
+	filter: blur(1px);
 }
 
 .welcome__box {
 	padding: 1rem;
-	background-color: #96c06f;
+	background-color: var(--color-bg-primary);
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
@@ -34,10 +55,14 @@
 }
 
 .welcome__play-btn {
-	background-color: #f4a261;
+	background-color: var(--color-btn-secondary);
 	border: none;
 	padding: 1rem;
 	cursor: pointer;
+}
+
+.welcome__play-btn:hover {
+	background-color: var(--color-btn-secondary-hover);
 }
 
 .gamefield__box {

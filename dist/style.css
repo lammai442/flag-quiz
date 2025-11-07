@@ -26,20 +26,22 @@ button:active {
 }
 
 .wrapper {
-	display: grid;
-	place-content: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	height: 100vh;
 }
 
 .background-flag {
-	background-image: url('../dist/assets/images/world-map.png');
+	background-image: url('../dist/assets/images/world-map.jpg');
 	width: 100vw;
 	height: 100vh;
-	background-size: contain;
-	position: absolute;
+	background-size: cover;
+	position: fixed;
+	transform: scale(1.1);
 	z-index: -1;
 	opacity: 0.8;
-	filter: blur(1px);
+	filter: blur(4px);
 }
 
 .welcome__box {

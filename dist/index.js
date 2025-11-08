@@ -5,6 +5,8 @@ const oGameData = {
     nmbrOfGuesses: 0,
     nmbrOfSeconds: 0,
     playerName: '',
+    errorNumber: 0,
+    nmbrOfCountries: 1,
     reset() {
         this.flags = [];
         this.startTime = 0;
@@ -12,6 +14,7 @@ const oGameData = {
         this.nmbrOfGuesses = 0;
         this.nmbrOfSeconds = 0;
         this.playerName = '';
+        this.errorNumber = 0;
     },
     startTimeInMilliseconds: function () {
         this.startTime = Date.now();
@@ -25,15 +28,33 @@ const playBtnRef = document.querySelector('.welcome__play-btn');
 const gamefieldRef = document.querySelector('#gamefield');
 const welcomeSectionRef = document.querySelector('#welcomeBox');
 const flagRef = document.querySelector('#flagSrc');
+const answerInputRef = document.querySelector('#answerInput');
+const answerBtnRef = document.querySelector('#answerBtn');
+const errorNbrRef = document.querySelector('#errorNbr');
+const answerFormRef = document.querySelector('#answerForm');
+// När använder trycker på playBtn
 playBtnRef.addEventListener('click', () => {
-    console.log('här ');
     initGame();
 });
 const initGame = async () => {
     welcomeSectionRef.classList.add('d-none');
     gamefieldRef.classList.toggle('d-none');
+    errorNbrRef.innerHTML = `${oGameData.errorNumber}`;
     const gameCountries = await fetchCountries();
     flagRef.src = gameCountries[0].flags.png;
+    console.log('gameCountries[0].name.common: ', gameCountries[0].name.common);
+    answerFormRef.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let rightAnswer = '';
+        if (answerInputRef.value === gameCountries[0].name.common) {
+            rightAnswer = 'Right';
+            console.log('right: ', rightAnswer);
+        }
+        else {
+            oGameData.errorNumber++;
+            errorNbrRef.innerHTML = `${oGameData.errorNumber}`;
+        }
+    });
 };
 const fetchCountries = async () => {
     try {
@@ -43,7 +64,7 @@ const fetchCountries = async () => {
         }
         const data = (await response.json());
         const shuffledData = shuffleArray(data);
-        const fiveCountries = shuffledData.slice(0, 5);
+        const fiveCountries = shuffledData.slice(0, oGameData.nmbrOfCountries);
         return fiveCountries;
     }
     catch (error) {

@@ -25,7 +25,13 @@
 			<section class="gamefield__box d-none" id="gamefield">
 				<img src="" alt="" id="flagSrc" class="gamefield__flag" />
 				<h2>Which country is this?</h2>
-				<input id="input" type="text" />
+				<span class="gamefield__error-text"
+					>Antal fel: <span id="errorNbr">0</span></span
+				>
+				<form id="answerForm">
+					<input id="answerInput" type="text" required />
+					<button id="answerBtn" type="submit">This is it!</button>
+				</form>
 			</section>
 		</main>
 		<script type="module" src="index.js"></script>

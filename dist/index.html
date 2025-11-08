@@ -26,12 +26,21 @@
 				<img src="" alt="" id="flagSrc" class="gamefield__flag" />
 				<h2>Which country is this?</h2>
 				<span class="gamefield__error-text"
-					>Antal fel: <span id="errorNbr">0</span></span
+					>Antal fel: <span id="errorNmbr">0</span></span
 				>
 				<form id="answerForm">
-					<input id="answerInput" type="text" required />
+					<input
+						id="answerInput"
+						type="text"
+						required
+						autocomplete="off" />
 					<button id="answerBtn" type="submit">This is it!</button>
 				</form>
+			</section>
+			<section class="endgame d-none">
+				<h2>Congratulations!</h2>
+				<p>You are a master of flags!</p>
+				<p>Counts of error: <span id="endgameErrorNmbr">0</span></p>
 			</section>
 		</main>
 		<script type="module" src="index.js"></script>

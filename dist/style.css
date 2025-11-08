@@ -80,3 +80,9 @@ button:active {
 .d-none {
 	display: none;
 }
+
+/* ENDGAME */
+.endgame {
+	background-color: var(--color-bg-primary);
+	padding: 1rem;
+}

@@ -1,28 +1,20 @@
 import type { GameData, Country } from './interfaces/index';
 
 const oGameData: GameData = {
-	flags: [],
+	gameCountries: [],
 	startTime: 0,
 	endTime: 0,
 	nmbrOfGuesses: 0,
 	nmbrOfSeconds: 0,
 	playerName: '',
-	errorNumber: 0,
-	nmbrOfCountries: 1,
+	errorNmbr: 0,
+	nmbrOfCountries: 5,
+	rightAnswers: 0,
 	reset() {
-		this.flags = [];
-		this.startTime = 0;
-		this.endTime = 0;
 		this.nmbrOfGuesses = 0;
 		this.nmbrOfSeconds = 0;
 		this.playerName = '';
-		this.errorNumber = 0;
-	},
-	startTimeInMilliseconds: function () {
-		this.startTime = Date.now();
-	},
-	endTimeInMilliseconds: function () {
-		this.endTime = Date.now();
+		this.errorNmbr = 0;
 	},
 };
 
@@ -37,7 +29,7 @@ const answerInputRef = document.querySelector(
 	'#answerInput'
 ) as HTMLInputElement;
 const answerBtnRef = document.querySelector('#answerBtn') as HTMLButtonElement;
-const errorNbrRef = document.querySelector('#errorNbr') as HTMLSpanElement;
+const errorNmbrRef = document.querySelector('#errorNmbr') as HTMLSpanElement;
 const answerFormRef = document.querySelector('#answerForm') as HTMLFormElement;
 
 // När använder trycker på playBtn
@@ -48,23 +40,39 @@ playBtnRef.addEventListener('click', () => {
 const initGame = async (): Promise<void> => {
 	welcomeSectionRef.classList.add('d-none');
 	gamefieldRef.classList.toggle('d-none');
-	errorNbrRef.innerHTML = `${oGameData.errorNumber}`;
+	errorNmbrRef.innerHTML = `${oGameData.errorNmbr}`;
 
-	const gameCountries = await fetchCountries();
-	flagRef.src = gameCountries[0].flags.png;
-	console.log('gameCountries[0].name.common: ', gameCountries[0].name.common);
+	oGameData.gameCountries = await fetchCountries();
+
+	showQuestion(oGameData.gameCountries);
 
 	answerFormRef.addEventListener('submit', (e) => {
 		e.preventDefault();
-		let rightAnswer: string = '';
-		if (answerInputRef.value === gameCountries[0].name.common) {
-			rightAnswer = 'Right';
-			console.log('right: ', rightAnswer);
+		// Vid rätt svar
+		if (
+			answerInputRef.value.toLowerCase() ===
+			oGameData.gameCountries[0].name.common.toLowerCase()
+		) {
+			oGameData.gameCountries.shift();
+
+			if (oGameData.gameCountries.length === 0) {
+				endGame();
+			} else {
+				answerInputRef.value = '';
+				showQuestion(oGameData.gameCountries);
+			}
 		} else {
-			oGameData.errorNumber++;
-			errorNbrRef.innerHTML = `${oGameData.errorNumber}`;
+			console.log('fel');
+
+			oGameData.errorNmbr += 1;
+			errorNmbrRef.innerHTML = `${oGameData.errorNmbr}`;
 		}
 	});
+};
+
+const showQuestion = (gameCountries: Country[]) => {
+	flagRef.src = gameCountries[0].flags.png;
+	console.log('gameCountries[0].name.common: ', gameCountries[0].name.common);
 };
 
 const fetchCountries = async (): Promise<Country[]> => {
@@ -97,4 +105,16 @@ function shuffleArray<T>(array: T[]): T[] {
 	return arr;
 }
 
-initGame();
+const endGame = () => {
+	gamefieldRef.classList.toggle('d-none');
+
+	const endgameErrorNmbrRef = document.querySelector(
+		'#endgameErrorNmbr'
+	) as HTMLSpanElement;
+	const endgameSectionRef = document.querySelector('.endgame') as HTMLElement;
+
+	endgameSectionRef.classList.toggle('d-none');
+	endgameErrorNmbrRef.innerHTML = `${oGameData.errorNmbr}`;
+};
+
+// initGame();

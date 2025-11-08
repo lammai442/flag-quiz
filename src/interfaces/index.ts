@@ -1,15 +1,14 @@
 export interface GameData {
-	flags: string[];
+	gameCountries: Country[];
 	startTime: number;
 	endTime: number;
 	nmbrOfGuesses: number;
 	nmbrOfSeconds: number;
 	playerName: string;
-	errorNumber: number;
+	errorNmbr: number;
 	nmbrOfCountries: number;
+	rightAnswers: number;
 	reset(): void;
-	startTimeInMilliseconds(): void;
-	endTimeInMilliseconds(): void;
 }
 
 export interface Country {

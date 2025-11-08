@@ -13,6 +13,7 @@
 	<body>
 		<main class="wrapper">
 			<div class="background-flag"></div>
+			<!-- WELCOME FIELD -->
 			<section class="welcome__box" id="welcomeBox">
 				<h1 class="welcome__title">Flag quiz - Europe edition</h1>
 				<p>
@@ -22,12 +23,17 @@
 				</p>
 				<button class="welcome__play-btn">Lets play</button>
 			</section>
+
+			<!-- GAMEFIELD -->
 			<section class="gamefield__box d-none" id="gamefield">
 				<img src="" alt="" id="flagSrc" class="gamefield__flag" />
 				<h2>Which country is this?</h2>
 				<span class="gamefield__error-text"
 					>Antal fel: <span id="errorNmbr">0</span></span
 				>
+				<p>Help?</p>
+				<span id="helpText" class="d-none"></span>
+				<button id="helpBtn">For the love of god, yes please!</button>
 				<form id="answerForm">
 					<input
 						id="answerInput"
@@ -37,10 +43,13 @@
 					<button id="answerBtn" type="submit">This is it!</button>
 				</form>
 			</section>
+
+			<!-- ENDGAME -->
 			<section class="endgame d-none">
 				<h2>Congratulations!</h2>
 				<p>You are a master of flags!</p>
 				<p>Counts of error: <span id="endgameErrorNmbr">0</span></p>
+				<button id="playAgainBtn">Play again?</button>
 			</section>
 		</main>
 		<script type="module" src="index.js"></script>

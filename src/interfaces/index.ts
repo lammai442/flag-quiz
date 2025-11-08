@@ -5,5 +5,5 @@ export interface GameData {
 	nmbrOfGuesses: number;
 	nmbrOfSeconds: number;
 	playerName: string;
-	init(): void;
+	reset(): void;
 }

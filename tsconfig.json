@@ -1,17 +1,30 @@
+// {
+// 	"compilerOptions": {
+// 		"target": "ES2020",
+// 		"outDir": "./dist",
+// 		"rootDir": "./src",
+// 		"module": "ESNext",
+// 		"moduleResolution": "bundler",
+// 		"sourceMap": true,
+// 		"strict": true,
+// 		"noImplicitAny": true,
+// 		"noImplicitReturns": true,
+// 		"isolatedModules": true
+// 	},
+// 	"include": ["./src"],
+// 	"exclude": []
+// }
 {
 	"compilerOptions": {
 		"target": "ES2020",
 		"outDir": "./dist",
 		"rootDir": "./src",
-		"sourceMap": true,
-		"noImplicitReturns": true,
+		"module": "ESNext",
+		"moduleResolution": "bundler",
 		"strict": true,
-		"jsx": "react-jsx",
-		"isolatedModules": true,
-		"moduleDetection": "force",
 		"noImplicitAny": true,
-		"allowImportingTsExtensions": true
+		"noImplicitReturns": true,
+		"isolatedModules": true
 	},
-	"include": ["./src"],
-	"exclude": []
+	"include": ["./src"]
 }

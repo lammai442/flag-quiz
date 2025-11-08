@@ -1,4 +1,4 @@
-import type { GameData } from './interfaces/index';
+import type { GameData, Country } from './interfaces/index';
 
 const oGameData: GameData = {
 	flags: [],
@@ -15,8 +15,13 @@ const oGameData: GameData = {
 		this.nmbrOfSeconds = 0;
 		this.playerName = '';
 	},
+	startTimeInMilliseconds: function () {
+		this.startTime = Date.now();
+	},
+	endTimeInMilliseconds: function () {
+		this.endTime = Date.now();
+	},
 };
-console.log('oGameData: ', oGameData);
 
 // Referenser som behövs i koden
 const playBtnRef = document.querySelector(
@@ -24,33 +29,37 @@ const playBtnRef = document.querySelector(
 ) as HTMLButtonElement;
 const gamefieldRef = document.querySelector('#gamefield') as HTMLElement;
 const welcomeSectionRef = document.querySelector('#welcomeBox') as HTMLElement;
+const flagRef = document.querySelector('#flagSrc') as HTMLImageElement;
 
 playBtnRef.addEventListener('click', () => {
 	console.log('här ');
 	initGame();
 });
-const initGame = (): void => {
+
+const initGame = async (): Promise<void> => {
 	welcomeSectionRef.classList.add('d-none');
 	gamefieldRef.classList.toggle('d-none');
 
-	fetchCountries();
+	const gameCountries = await fetchCountries();
+	flagRef.src = gameCountries[0].flags.png;
 };
 
-const flagSetup = async (): Promise<void> => {
-	const countryList = await fetchCountries();
-};
-
-const fetchCountries = async (): Promise<void> => {
+const fetchCountries = async (): Promise<Country[]> => {
 	try {
 		const response: Response = await fetch(
 			'https://restcountries.com/v3.1/region/europe'
 		);
-		if (response.ok) {
-			const data = await response.json();
-			const shuffledData = shuffleArray(data);
-			console.log('data: ', shuffledData);
+		if (!response.ok) {
+			throw new Error('Failed to fetch countries');
 		}
-	} catch (error) {}
+		const data = (await response.json()) as Country[];
+		const shuffledData = shuffleArray(data);
+		const fiveCountries = shuffledData.slice(0, 5);
+		return fiveCountries;
+	} catch (error) {
+		console.log(error);
+		return [];
+	}
 };
 
 function shuffleArray<T>(array: T[]): T[] {
@@ -61,3 +70,5 @@ function shuffleArray<T>(array: T[]): T[] {
 	}
 	return arr;
 }
+
+initGame();

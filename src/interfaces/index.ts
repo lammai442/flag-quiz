@@ -6,4 +6,16 @@ export interface GameData {
 	nmbrOfSeconds: number;
 	playerName: string;
 	reset(): void;
+	startTimeInMilliseconds(): void;
+	endTimeInMilliseconds(): void;
+}
+
+export interface Country {
+	flags: {
+		alt: string;
+		png: string;
+	};
+	name: {
+		common: string;
+	};
 }

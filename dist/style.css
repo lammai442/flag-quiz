@@ -68,6 +68,13 @@ button:active {
 }
 
 .gamefield__box {
+	background-color: var(--color-bg-primary);
+	width: 300px;
+	height: 300px;
+}
+
+.gamefield__flag {
+	width: 100%;
 }
 
 .d-none {

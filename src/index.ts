@@ -1,4 +1,8 @@
 import type { GameData, Country } from './interfaces/index';
+import { generateRandomNmbr } from './utils/index.js';
+const randomNumber: number = generateRandomNmbr();
+
+console.log(randomNumber);
 
 const oGameData: GameData = {
 	gameCountries: [],

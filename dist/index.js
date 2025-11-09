@@ -1,3 +1,6 @@
+import { generateRandomNmbr } from './utils/index.js';
+const randomNumber = generateRandomNmbr();
+console.log(randomNumber);
 const oGameData = {
     gameCountries: [],
     playerName: '',
@@ -100,4 +103,3 @@ const endGame = () => {
         initGame();
     });
 };
-export {};

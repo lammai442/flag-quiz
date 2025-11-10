@@ -20,4 +20,5 @@ export interface Country {
 export interface NewGamePlayer {
 	playerName: string;
 	errorNmbr: number;
+	helpNmbr: number;
 }

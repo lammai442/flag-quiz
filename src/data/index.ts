@@ -7,7 +7,9 @@ export const updateLocalStorage = (
 		localStorage.getItem('highScore') || '[]'
 	);
 
-	compareHighScore(fromLocalStorage, newGamePlayer);
+	fromLocalStorage.push(newGamePlayer);
+
+	sortingHighScore(fromLocalStorage);
 
 	localStorage.setItem('highScore', JSON.stringify(fromLocalStorage));
 
@@ -21,13 +23,15 @@ export const getHighScore = (): NewGamePlayer[] => {
 	return highScoreData;
 };
 
-const compareHighScore = (
-	highScore: NewGamePlayer[],
-	newGamePlayer: NewGamePlayer
-) => {
-	highScore.push(newGamePlayer);
-
-	if (highScore.length > 1) {
-		highScore.sort((a, b) => a.errorNmbr - b.errorNmbr);
-	}
+/* ===== AI-HJÄLP ===== */
+// Fått hjälp med att sortera så att den kontrollerar errorNmbr först och därefter helpNmbr
+const sortingHighScore = (highScore: NewGamePlayer[]) => {
+	highScore.sort((a, b) => {
+		// Sortera först på errorNmbr (färre fel först)
+		if (a.errorNmbr !== b.errorNmbr) {
+			return a.errorNmbr - b.errorNmbr;
+		}
+		// Om lika många fel, sortera på helpNmbr (färre hjälp först)
+		return a.helpNmbr - b.helpNmbr;
+	});
 };

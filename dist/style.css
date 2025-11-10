@@ -21,6 +21,10 @@
 	--color-error: #d62828;
 }
 
+button {
+	cursor: pointer;
+}
+
 button:active {
 	transform: scale(0.98);
 }

@@ -17,18 +17,13 @@ const oGameData: GameData = {
 
 const highScore: NewGamePlayer[] = getHighScore();
 
-const newGamePlayer: NewGamePlayer = {
-	playerName: 'Olle',
-	errorNmbr: 1,
-};
-
 const highScoreListRef = document.querySelector(
 	'#highScoreList'
 ) as HTMLUListElement;
 
 highScore.forEach((score) => {
 	const listItemElement = document.createElement('li') as HTMLLIElement;
-	listItemElement.innerText = `Player: ${score.playerName} with ${score.errorNmbr} errors.`;
+	listItemElement.innerText = `Player: ${score.playerName} with ${score.errorNmbr} errors and ${score.helpNmbr} helps`;
 	highScoreListRef.appendChild(listItemElement);
 });
 
@@ -65,11 +60,14 @@ const initGame = async (): Promise<void> => {
 	showQuestion(oGameData.gameCountries);
 
 	helpBtnRef.addEventListener('click', () => {
-		helpTextRef.innerHTML = `It starts with : ${oGameData.gameCountries[0].name.common.slice(
+		const countryName: string = oGameData.gameCountries[0].name.common;
+
+		helpTextRef.innerHTML = `It starts with : ${countryName.slice(
 			0,
 			oGameData.helpNmbr
 		)}`;
-		oGameData.helpNmbr += 1;
+		if (oGameData.helpNmbr < countryName.length - 1)
+			oGameData.helpNmbr += 1;
 	});
 
 	answerFormRef.addEventListener('submit', (e) => {

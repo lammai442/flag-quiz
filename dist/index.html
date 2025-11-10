@@ -14,7 +14,7 @@
 		<main class="wrapper">
 			<div class="background-flag"></div>
 			<!-- WELCOME FIELD -->
-			<section class="welcome__box" id="welcomeBox">
+			<section class="welcome__box d-none" id="welcomeBox">
 				<h1 class="welcome__title">Flag quiz - Europe edition</h1>
 				<p>
 					Think you know your flags? Prove it!<br />
@@ -46,11 +46,19 @@
 			</section>
 
 			<!-- ENDGAME -->
-			<section class="endgame d-none">
-				<h2>Congratulations!</h2>
-				<p>You are a master of flags!</p>
-				<p>Counts of error: <span id="endgameErrorNmbr">0</span></p>
-				<button id="playAgainBtn">Play again?</button>
+			<section class="endgame">
+				<section class="endgame__top-box">
+					<h2>Congratulations!</h2>
+					<p>You are a master of flags!</p>
+					<p>Counts of error: <span id="endgameErrorNmbr">0</span></p>
+				</section>
+				<section class="high-score__box">
+					<h3 class="high-score__title">High score</h3>
+					<ol class="high-score__list" id="highScoreList"></ol>
+				</section>
+				<button class="high-score__play-again-btn" id="playAgainBtn">
+					Play again?
+				</button>
 			</section>
 		</main>
 		<script type="module" src="index.js"></script>

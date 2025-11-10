@@ -1,6 +1,6 @@
 import type { GameData, Country, NewGamePlayer } from './interfaces/index';
 import { shuffleArray } from './utils/index.js';
-import { updateLocalStorage } from './data/index.js';
+import { updateLocalStorage, getHighScore } from './data/index.js';
 
 const oGameData: GameData = {
 	gameCountries: [],
@@ -15,12 +15,22 @@ const oGameData: GameData = {
 	},
 };
 
+const highScore: NewGamePlayer[] = getHighScore();
+
 const newGamePlayer: NewGamePlayer = {
 	playerName: 'Olle',
 	errorNmbr: 1,
 };
 
-updateLocalStorage(newGamePlayer);
+const highScoreListRef = document.querySelector(
+	'#highScoreList'
+) as HTMLUListElement;
+
+highScore.forEach((score) => {
+	const listItemElement = document.createElement('li') as HTMLLIElement;
+	listItemElement.innerText = `Player: ${score.playerName} with ${score.errorNmbr} errors.`;
+	highScoreListRef.appendChild(listItemElement);
+});
 
 // Referenser som behövs i koden
 const playBtnRef = document.querySelector(
@@ -111,15 +121,6 @@ const generateGameCountries = (countryList: Country[]): void => {
 	const shuffledData: Country[] = shuffleArray(countryList);
 	oGameData.gameCountries = shuffledData.slice(0, oGameData.nmbrOfCountries);
 };
-
-// function shuffleArray<T>(array: T[]): T[] {
-// 	const arr = [...array]; // kopiera så vi inte ändrar originalet
-// 	for (let i = arr.length - 1; i > 0; i--) {
-// 		const j = Math.floor(Math.random() * (i + 1)); // slumpa index 0 → i
-// 		[arr[i], arr[j]] = [arr[j], arr[i]]; // byt plats
-// 	}
-// 	return arr;
-// }
 
 const endGame = () => {
 	gamefieldRef.classList.toggle('d-none');

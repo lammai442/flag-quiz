@@ -14,6 +14,13 @@ export const updateLocalStorage = (
 	return fromLocalStorage;
 };
 
+export const getHighScore = (): NewGamePlayer[] => {
+	const highScoreData: NewGamePlayer[] = JSON.parse(
+		localStorage.getItem('highScore') || '[]'
+	);
+	return highScoreData;
+};
+
 const compareHighScore = (
 	highScore: NewGamePlayer[],
 	newGamePlayer: NewGamePlayer

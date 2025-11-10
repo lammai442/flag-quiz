@@ -1,8 +1,6 @@
-import type { GameData, Country } from './interfaces/index';
-import { generateRandomNmbr } from './utils/index.js';
-const randomNumber: number = generateRandomNmbr();
-
-console.log(randomNumber);
+import type { GameData, Country, NewGamePlayer } from './interfaces/index';
+import { shuffleArray } from './utils/index.js';
+import { updateLocalStorage } from './data/index.js';
 
 const oGameData: GameData = {
 	gameCountries: [],
@@ -13,8 +11,16 @@ const oGameData: GameData = {
 	reset() {
 		this.playerName = '';
 		this.errorNmbr = 0;
+		this.gameCountries = [];
 	},
 };
+
+const newGamePlayer: NewGamePlayer = {
+	playerName: 'Olle',
+	errorNmbr: 1,
+};
+
+updateLocalStorage(newGamePlayer);
 
 // Referenser som behövs i koden
 const playBtnRef = document.querySelector(
@@ -34,11 +40,12 @@ const helpTextRef = document.querySelector('#helpText') as HTMLSpanElement;
 
 // När använder trycker på playBtn
 playBtnRef.addEventListener('click', () => {
-	welcomeSectionRef.classList.add('d-none');
 	initGame();
 });
 
+// Initiering av spelet
 const initGame = async (): Promise<void> => {
+	welcomeSectionRef.classList.add('d-none');
 	gamefieldRef.classList.toggle('d-none');
 	errorNmbrRef.innerHTML = `${oGameData.errorNmbr}`;
 
@@ -65,7 +72,7 @@ const initGame = async (): Promise<void> => {
 			oGameData.gameCountries.shift();
 			answerInputRef.value = '';
 			oGameData.helpNmbr = 1;
-			helpTextRef.classList.toggle('d-none');
+			helpTextRef.textContent = 'Help?';
 
 			if (oGameData.gameCountries.length === 0) {
 				endGame();
@@ -81,7 +88,6 @@ const initGame = async (): Promise<void> => {
 
 const showQuestion = (gameCountries: Country[]) => {
 	flagRef.src = gameCountries[0].flags.png;
-	console.log('gameCountries[0].name.common: ', gameCountries[0].name.common);
 };
 
 const fetchCountries = async (): Promise<Country[]> => {
@@ -106,14 +112,14 @@ const generateGameCountries = (countryList: Country[]): void => {
 	oGameData.gameCountries = shuffledData.slice(0, oGameData.nmbrOfCountries);
 };
 
-function shuffleArray<T>(array: T[]): T[] {
-	const arr = [...array]; // kopiera så vi inte ändrar originalet
-	for (let i = arr.length - 1; i > 0; i--) {
-		const j = Math.floor(Math.random() * (i + 1)); // slumpa index 0 → i
-		[arr[i], arr[j]] = [arr[j], arr[i]]; // byt plats
-	}
-	return arr;
-}
+// function shuffleArray<T>(array: T[]): T[] {
+// 	const arr = [...array]; // kopiera så vi inte ändrar originalet
+// 	for (let i = arr.length - 1; i > 0; i--) {
+// 		const j = Math.floor(Math.random() * (i + 1)); // slumpa index 0 → i
+// 		[arr[i], arr[j]] = [arr[j], arr[i]]; // byt plats
+// 	}
+// 	return arr;
+// }
 
 const endGame = () => {
 	gamefieldRef.classList.toggle('d-none');

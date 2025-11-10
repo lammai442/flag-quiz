@@ -16,3 +16,8 @@ export interface Country {
 		common: string;
 	};
 }
+
+export interface NewGamePlayer {
+	playerName: string;
+	errorNmbr: number;
+}

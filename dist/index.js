@@ -1,6 +1,5 @@
-import { generateRandomNmbr } from './utils/index.js';
-const randomNumber = generateRandomNmbr();
-console.log(randomNumber);
+import { shuffleArray } from './utils/index.js';
+import { updateLocalStorage } from './data/index.js';
 const oGameData = {
     gameCountries: [],
     playerName: '',
@@ -10,8 +9,14 @@ const oGameData = {
     reset() {
         this.playerName = '';
         this.errorNmbr = 0;
+        this.gameCountries = [];
     },
 };
+const newGamePlayer = {
+    playerName: 'Olle',
+    errorNmbr: 1,
+};
+updateLocalStorage(newGamePlayer);
 // Referenser som behövs i koden
 const playBtnRef = document.querySelector('.welcome__play-btn');
 const gamefieldRef = document.querySelector('#gamefield');
@@ -25,10 +30,11 @@ const helpBtnRef = document.querySelector('#helpBtn');
 const helpTextRef = document.querySelector('#helpText');
 // När använder trycker på playBtn
 playBtnRef.addEventListener('click', () => {
-    welcomeSectionRef.classList.add('d-none');
     initGame();
 });
+// Initiering av spelet
 const initGame = async () => {
+    welcomeSectionRef.classList.add('d-none');
     gamefieldRef.classList.toggle('d-none');
     errorNmbrRef.innerHTML = `${oGameData.errorNmbr}`;
     const countryList = await fetchCountries();
@@ -46,7 +52,7 @@ const initGame = async () => {
             oGameData.gameCountries.shift();
             answerInputRef.value = '';
             oGameData.helpNmbr = 1;
-            helpTextRef.classList.toggle('d-none');
+            helpTextRef.textContent = 'Help?';
             if (oGameData.gameCountries.length === 0) {
                 endGame();
             }
@@ -62,7 +68,6 @@ const initGame = async () => {
 };
 const showQuestion = (gameCountries) => {
     flagRef.src = gameCountries[0].flags.png;
-    console.log('gameCountries[0].name.common: ', gameCountries[0].name.common);
 };
 const fetchCountries = async () => {
     try {
@@ -82,14 +87,14 @@ const generateGameCountries = (countryList) => {
     const shuffledData = shuffleArray(countryList);
     oGameData.gameCountries = shuffledData.slice(0, oGameData.nmbrOfCountries);
 };
-function shuffleArray(array) {
-    const arr = [...array]; // kopiera så vi inte ändrar originalet
-    for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1)); // slumpa index 0 → i
-        [arr[i], arr[j]] = [arr[j], arr[i]]; // byt plats
-    }
-    return arr;
-}
+// function shuffleArray<T>(array: T[]): T[] {
+// 	const arr = [...array]; // kopiera så vi inte ändrar originalet
+// 	for (let i = arr.length - 1; i > 0; i--) {
+// 		const j = Math.floor(Math.random() * (i + 1)); // slumpa index 0 → i
+// 		[arr[i], arr[j]] = [arr[j], arr[i]]; // byt plats
+// 	}
+// 	return arr;
+// }
 const endGame = () => {
     gamefieldRef.classList.toggle('d-none');
     const endgameErrorNmbrRef = document.querySelector('#endgameErrorNmbr');

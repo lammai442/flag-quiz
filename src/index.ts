@@ -1,19 +1,6 @@
 import type { GameData, Country, NewGamePlayer } from './interfaces/index';
 import { shuffleArray } from './utils/index.js';
-import { updateLocalStorage, getHighScore } from './data/index.js';
-
-const oGameData: GameData = {
-	gameCountries: [],
-	playerName: '',
-	errorNmbr: 0,
-	nmbrOfCountries: 5,
-	helpNmbr: 1,
-	reset() {
-		this.playerName = '';
-		this.errorNmbr = 0;
-		this.gameCountries = [];
-	},
-};
+import { updateLocalStorage, getHighScore, oGameData } from './data/index.js';
 
 const highScore: NewGamePlayer[] = getHighScore();
 
@@ -23,14 +10,12 @@ const highScoreListRef = document.querySelector(
 
 highScore.forEach((score) => {
 	const listItemElement = document.createElement('li') as HTMLLIElement;
-	listItemElement.innerText = `Player: ${score.playerName} with ${score.errorNmbr} errors and ${score.helpNmbr} helps`;
+	listItemElement.innerText = `Player: ${score.playerName} with ${score.wrongGuesses} errors and ${score.helpNmbr} helps`;
 	highScoreListRef.appendChild(listItemElement);
 });
 
 // Referenser som behövs i koden
-const playBtnRef = document.querySelector(
-	'.welcome__play-btn'
-) as HTMLButtonElement;
+const playBtnRef = document.querySelector('#formPlayBtn') as HTMLButtonElement;
 const gamefieldRef = document.querySelector('#gamefield') as HTMLElement;
 const welcomeSectionRef = document.querySelector('#welcomeBox') as HTMLElement;
 const flagRef = document.querySelector('#flagSrc') as HTMLImageElement;
@@ -43,8 +28,9 @@ const answerFormRef = document.querySelector('#answerForm') as HTMLFormElement;
 const helpBtnRef = document.querySelector('#helpBtn') as HTMLButtonElement;
 const helpTextRef = document.querySelector('#helpText') as HTMLSpanElement;
 
-// När använder trycker på playBtn
-playBtnRef.addEventListener('click', () => {
+// När användaren trycker på playBtn
+playBtnRef.addEventListener('click', (e: MouseEvent) => {
+	e.preventDefault();
 	initGame();
 });
 
@@ -52,46 +38,64 @@ playBtnRef.addEventListener('click', () => {
 const initGame = async (): Promise<void> => {
 	welcomeSectionRef.classList.add('d-none');
 	gamefieldRef.classList.toggle('d-none');
-	errorNmbrRef.innerHTML = `${oGameData.errorNmbr}`;
 
-	const countryList: Country[] = await fetchCountries();
-	generateGameCountries(countryList);
+	const playerInputRef = document.querySelector(
+		'#playerInput'
+	) as HTMLInputElement;
+
+	oGameData.playerName = playerInputRef.value;
+
+	await generateGameCountries();
 
 	showQuestion(oGameData.gameCountries);
+};
 
-	helpBtnRef.addEventListener('click', () => {
-		const countryName: string = oGameData.gameCountries[0].name.common;
+answerFormRef.addEventListener('submit', (e) => {
+	e.preventDefault();
+	checkAnswer();
+});
 
-		helpTextRef.innerHTML = `It starts with : ${countryName.slice(
-			0,
-			oGameData.helpNmbr
-		)}`;
-		if (oGameData.helpNmbr < countryName.length - 1)
-			oGameData.helpNmbr += 1;
-	});
+const checkAnswer = (): void => {
+	const errorMsgRef = document.querySelector('#errorMsg') as HTMLSpanElement;
+	console.log(oGameData);
 
-	answerFormRef.addEventListener('submit', (e) => {
-		e.preventDefault();
-		// Vid rätt svar
-		if (
-			answerInputRef.value.toLowerCase() ===
-			oGameData.gameCountries[0].name.common.toLowerCase()
-		) {
-			oGameData.gameCountries.shift();
-			answerInputRef.value = '';
-			oGameData.helpNmbr = 1;
-			helpTextRef.textContent = 'Help?';
+	// Vid rätt svar
+	if (
+		answerInputRef.value.toLowerCase() ===
+		oGameData.gameCountries[0].name.common.toLowerCase()
+	) {
+		errorMsgRef.classList.add('d-none');
+		oGameData.gameCountries.shift();
+		answerInputRef.value = '';
+		oGameData.helpNmbr = 1;
+		helpTextRef.textContent = 'Help?';
 
-			if (oGameData.gameCountries.length === 0) {
-				endGame();
-			} else {
-				showQuestion(oGameData.gameCountries);
-			}
+		if (oGameData.gameCountries.length === 0) {
+			endGame();
 		} else {
-			oGameData.errorNmbr += 1;
-			errorNmbrRef.innerHTML = `${oGameData.errorNmbr}`;
+			showQuestion(oGameData.gameCountries);
 		}
-	});
+	} else {
+		errorMsgRef.classList.remove('d-none');
+		oGameData.wrongGuesses += 1;
+	}
+};
+
+helpBtnRef.addEventListener('click', () => {
+	giveHelp();
+});
+
+const giveHelp = (): void => {
+	const countryName: string = oGameData.gameCountries[0].name.common;
+
+	helpTextRef.innerHTML = `It starts with : ${countryName.slice(
+		0,
+		oGameData.helpNmbr
+	)}`;
+	if (oGameData.helpNmbr < countryName.length) {
+		oGameData.totalHelp += 1;
+		oGameData.helpNmbr += 1;
+	}
 };
 
 const showQuestion = (gameCountries: Country[]) => {
@@ -115,7 +119,9 @@ const fetchCountries = async (): Promise<Country[]> => {
 	}
 };
 
-const generateGameCountries = (countryList: Country[]): void => {
+const generateGameCountries = async (): Promise<void> => {
+	const countryList: Country[] = await fetchCountries();
+
 	const shuffledData: Country[] = shuffleArray(countryList);
 	oGameData.gameCountries = shuffledData.slice(0, oGameData.nmbrOfCountries);
 };
@@ -123,8 +129,11 @@ const generateGameCountries = (countryList: Country[]): void => {
 const endGame = () => {
 	gamefieldRef.classList.toggle('d-none');
 
-	const endgameErrorNmbrRef = document.querySelector(
-		'#endgameErrorNmbr'
+	const endgameWrongGuessesRef = document.querySelector(
+		'#endgameWrongGuesses'
+	) as HTMLSpanElement;
+	const endgameTotalHelpRef = document.querySelector(
+		'#endgameTotalHelp'
 	) as HTMLSpanElement;
 	const endgameSectionRef = document.querySelector('.endgame') as HTMLElement;
 	const playAgainBtnRef = document.querySelector(
@@ -132,7 +141,8 @@ const endGame = () => {
 	) as HTMLButtonElement;
 
 	endgameSectionRef.classList.toggle('d-none');
-	endgameErrorNmbrRef.innerHTML = `${oGameData.errorNmbr}`;
+	endgameWrongGuessesRef.innerHTML = `${oGameData.wrongGuesses}`;
+	endgameTotalHelpRef.textContent = `${oGameData.totalHelp}`;
 
 	playAgainBtnRef.addEventListener('click', () => {
 		oGameData.reset();

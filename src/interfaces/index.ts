@@ -1,9 +1,10 @@
 export interface GameData {
 	gameCountries: Country[];
 	playerName: string;
-	errorNmbr: number;
+	wrongGuesses: number;
 	nmbrOfCountries: number;
 	helpNmbr: number;
+	totalHelp: number;
 	reset(): void;
 }
 
@@ -19,6 +20,6 @@ export interface Country {
 
 export interface NewGamePlayer {
 	playerName: string;
-	errorNmbr: number;
+	wrongGuesses: number;
 	helpNmbr: number;
 }

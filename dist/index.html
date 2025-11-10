@@ -16,20 +16,32 @@
 			<!-- WELCOME FIELD -->
 			<section class="welcome__box" id="welcomeBox">
 				<h1 class="welcome__title">Flag quiz - Europe edition</h1>
-				<p>
+				<p class="welcome__paragraph">
 					Think you know your flags? Prove it!<br />
-					Guess as many European countries as you can and climb the
-					scoreboard! 🏆
+					Guess 10 European countries and climb the scoreboard! 🏆
 				</p>
-				<button class="welcome__play-btn">Lets play</button>
+				<form class="form">
+					<label>
+						Player name:
+						<input
+							class="form__input"
+							type="text"
+							id="playerInput" />
+					</label>
+					<button class="form__play-btn" id="formPlayBtn">
+						Lets play
+					</button>
+				</form>
 			</section>
 
 			<!-- GAMEFIELD -->
 			<section class="gamefield__box d-none" id="gamefield">
 				<img src="" alt="" id="flagSrc" class="gamefield__flag" />
-				<h2>Which country is this?</h2>
-				<span class="gamefield__error-text"
-					>Antal fel: <span id="errorNmbr">0</span></span
+				<h2 class="gamefield__title" id="gamefieldTitle">
+					Which country is this?
+				</h2>
+				<span class="gamefield__error-msg d-none" id="errorMsg"
+					>Oh no, you got it wrong</span
 				>
 				<section class="help__box">
 					<p id="helpText">Help?</p>
@@ -50,7 +62,14 @@
 				<section class="endgame__top-box">
 					<h2>Congratulations!</h2>
 					<p>You are a master of flags!</p>
-					<p>Counts of error: <span id="endgameErrorNmbr">0</span></p>
+					<p>
+						Counts of wrong guesses:
+						<span id="endgameWrongGuesses">0</span>
+					</p>
+					<p>
+						Counts of total help:
+						<span id="endgameTotalHelp">0</span>
+					</p>
 				</section>
 				<section class="high-score__box">
 					<h3 class="high-score__title">High score</h3>

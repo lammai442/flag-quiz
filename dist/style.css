@@ -48,29 +48,49 @@ button:active {
 	filter: blur(4px);
 }
 
+/* WELCOME */
 .welcome__box {
 	padding: 1rem;
 	background-color: var(--color-bg-primary);
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
+	text-align: center;
 }
 
 .welcome__title {
 	color: #1d2b1f;
 }
 
-.welcome__play-btn {
+.form {
+	display: flex;
+	flex-direction: column;
+}
+
+.form__input {
+	padding: 0.3rem;
+	border-radius: 5px;
+	border: none;
+	margin-bottom: 1rem;
+}
+
+.form__play-btn {
 	background-color: var(--color-btn-secondary);
 	border: none;
 	padding: 1rem;
 	cursor: pointer;
+	border-radius: 10px;
 }
 
-.welcome__play-btn:hover {
+.welcome__paragraph {
+	margin: 1rem 0;
+}
+
+.form__play-btn:hover {
 	background-color: var(--color-btn-secondary-hover);
 }
 
+/* GAMEFIELD */
 .gamefield__box {
 	background-color: var(--color-bg-primary);
 	width: 300px;
@@ -86,6 +106,10 @@ button:active {
 .gamefield__flag {
 	width: 200px;
 	aspect-ratio: 3 /2;
+}
+
+.gamefield__error-msg {
+	color: red;
 }
 
 .d-none {

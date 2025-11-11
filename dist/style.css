@@ -16,6 +16,8 @@
 	--color-btn-primary-hover: #4e7a2f;
 	--color-btn-secondary: #f4a261;
 	--color-btn-secondary-hover: #e68945;
+	--color-btn-tertiary: #67bbef;
+	--color-btn-tertiary-hover: #35627b;
 
 	--color-success: #3a7d44;
 	--color-error: #d62828;
@@ -93,8 +95,7 @@ button:active {
 /* GAMEFIELD */
 .gamefield__box {
 	background-color: var(--color-bg-primary);
-	width: 300px;
-	height: 400px;
+	padding: 2rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -116,11 +117,41 @@ button:active {
 	display: none;
 }
 
+.gamefield__input {
+	padding: 0.3rem;
+	border-radius: 5px;
+	border: none;
+	margin-bottom: 1rem;
+}
+
+.gamefield__answer-btn {
+	background-color: var(--color-btn-secondary);
+	border: none;
+	padding: 0.5rem;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
+.gamefield__help-btn {
+	background-color: var(--color-btn-tertiary);
+	border: none;
+	padding: 0.5rem;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
 /* ENDGAME */
 .endgame {
 	background-color: var(--color-bg-primary);
 	padding: 2rem;
 	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.endgame__title {
+	margin-bottom: 0.4rem;
 }
 
 .endgame__top-box {
@@ -131,4 +162,20 @@ button:active {
 .high-score__title {
 	text-align: center;
 	margin-bottom: 0.5rem;
+}
+
+.high-score__list {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.1rem;
+}
+
+.high-score__play-again-btn {
+	background-color: var(--color-btn-secondary);
+	border: none;
+	padding: 1rem;
+	cursor: pointer;
+	border-radius: 10px;
+	margin-top: 1rem;
 }

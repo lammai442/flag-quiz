@@ -20,13 +20,14 @@
 					Think you know your flags? Prove it!<br />
 					Guess 10 European countries and climb the scoreboard! 🏆
 				</p>
-				<form class="form">
+				<form class="form" id="welcomeForm">
 					<label>
 						Player name:
 						<input
 							class="form__input"
 							type="text"
-							id="playerInput" />
+							id="playerInput"
+							required />
 					</label>
 					<button class="form__play-btn" id="formPlayBtn">
 						Lets play
@@ -46,21 +47,29 @@
 				<section class="help__box">
 					<p id="helpText">Help?</p>
 				</section>
-				<button id="helpBtn">For the love of god, yes please!</button>
+				<button class="gamefield__help-btn" id="helpBtn">
+					I want a sneek peek!
+				</button>
 				<form id="answerForm">
 					<input
+						class="gamefield__input"
 						id="answerInput"
 						type="text"
 						required
 						autocomplete="off" />
-					<button id="answerBtn" type="submit">This is it!</button>
+					<button
+						class="gamefield__answer-btn"
+						id="answerBtn"
+						type="submit">
+						This is it!
+					</button>
 				</form>
 			</section>
 
 			<!-- ENDGAME -->
 			<section class="endgame d-none">
 				<section class="endgame__top-box">
-					<h2>Congratulations!</h2>
+					<h2 class="endgame__title" id="endgameTitle"></h2>
 					<p>You are a master of flags!</p>
 					<p>
 						Counts of wrong guesses:
@@ -71,8 +80,9 @@
 						<span id="endgameTotalHelp">0</span>
 					</p>
 				</section>
+				<span class="endgame__trophy">🏆</span>
 				<section class="high-score__box">
-					<h3 class="high-score__title">High score</h3>
+					<h3 class="high-score__title">Top 5 - High score</h3>
 					<ol class="high-score__list" id="highScoreList"></ol>
 				</section>
 				<button class="high-score__play-again-btn" id="playAgainBtn">

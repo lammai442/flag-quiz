@@ -1,13 +1,10 @@
 export const updateLocalStorage = (newGamePlayer) => {
-    const fromLocalStorage = JSON.parse(localStorage.getItem('highScore') || '[]');
-    fromLocalStorage.push(newGamePlayer);
-    sortingHighScore(fromLocalStorage);
-    localStorage.setItem('highScore', JSON.stringify(fromLocalStorage));
-    return fromLocalStorage;
-};
-export const getHighScore = () => {
     const highScoreData = JSON.parse(localStorage.getItem('highScore') || '[]');
-    return highScoreData;
+    highScoreData.push(newGamePlayer);
+    sortingHighScore(highScoreData);
+    const topFive = highScoreData.slice(0, 5);
+    localStorage.setItem('highScore', JSON.stringify(topFive));
+    return topFive;
 };
 export const oGameData = {
     nmbrOfCountries: 1,

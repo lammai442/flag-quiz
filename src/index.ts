@@ -1,35 +1,23 @@
-import type { GameData, Country, NewGamePlayer } from './interfaces/index';
+import type { Country, NewGamePlayer } from './interfaces/index';
 import { shuffleArray } from './utils/index.js';
-import { updateLocalStorage, getHighScore, oGameData } from './data/index.js';
-
-const highScore: NewGamePlayer[] = getHighScore();
-
-const highScoreListRef = document.querySelector(
-	'#highScoreList'
-) as HTMLUListElement;
-
-highScore.forEach((score) => {
-	const listItemElement = document.createElement('li') as HTMLLIElement;
-	listItemElement.innerText = `Player: ${score.playerName} with ${score.wrongGuesses} errors and ${score.helpNmbr} helps`;
-	highScoreListRef.appendChild(listItemElement);
-});
+import { updateLocalStorage, oGameData } from './data/index.js';
 
 // Referenser som behövs i koden
-const playBtnRef = document.querySelector('#formPlayBtn') as HTMLButtonElement;
+const welcomeFormRef = document.querySelector(
+	'#welcomeForm'
+) as HTMLFormElement;
 const gamefieldRef = document.querySelector('#gamefield') as HTMLElement;
 const welcomeSectionRef = document.querySelector('#welcomeBox') as HTMLElement;
 const flagRef = document.querySelector('#flagSrc') as HTMLImageElement;
 const answerInputRef = document.querySelector(
 	'#answerInput'
 ) as HTMLInputElement;
-const answerBtnRef = document.querySelector('#answerBtn') as HTMLButtonElement;
-const errorNmbrRef = document.querySelector('#errorNmbr') as HTMLSpanElement;
 const answerFormRef = document.querySelector('#answerForm') as HTMLFormElement;
 const helpBtnRef = document.querySelector('#helpBtn') as HTMLButtonElement;
 const helpTextRef = document.querySelector('#helpText') as HTMLSpanElement;
 
 // När användaren trycker på playBtn
-playBtnRef.addEventListener('click', (e: MouseEvent) => {
+welcomeFormRef.addEventListener('submit', (e: SubmitEvent) => {
 	e.preventDefault();
 	initGame();
 });
@@ -37,7 +25,7 @@ playBtnRef.addEventListener('click', (e: MouseEvent) => {
 // Initiering av spelet
 const initGame = async (): Promise<void> => {
 	welcomeSectionRef.classList.add('d-none');
-	gamefieldRef.classList.toggle('d-none');
+	gamefieldRef.classList.remove('d-none');
 
 	const playerInputRef = document.querySelector(
 		'#playerInput'
@@ -50,14 +38,13 @@ const initGame = async (): Promise<void> => {
 	showQuestion(oGameData.gameCountries);
 };
 
-answerFormRef.addEventListener('submit', (e) => {
+answerFormRef.addEventListener('submit', (e: SubmitEvent) => {
 	e.preventDefault();
 	checkAnswer();
 });
 
 const checkAnswer = (): void => {
 	const errorMsgRef = document.querySelector('#errorMsg') as HTMLSpanElement;
-	console.log(oGameData);
 
 	// Vid rätt svar
 	if (
@@ -81,7 +68,7 @@ const checkAnswer = (): void => {
 	}
 };
 
-helpBtnRef.addEventListener('click', () => {
+helpBtnRef.addEventListener('click', (): void => {
 	giveHelp();
 });
 
@@ -127,8 +114,6 @@ const generateGameCountries = async (): Promise<void> => {
 };
 
 const endGame = () => {
-	gamefieldRef.classList.toggle('d-none');
-
 	const endgameWrongGuessesRef = document.querySelector(
 		'#endgameWrongGuesses'
 	) as HTMLSpanElement;
@@ -139,14 +124,44 @@ const endGame = () => {
 	const playAgainBtnRef = document.querySelector(
 		'#playAgainBtn'
 	) as HTMLButtonElement;
+	const endgameTitleRef = document.querySelector(
+		'#endgameTitle'
+	) as HTMLHeadingElement;
 
-	endgameSectionRef.classList.toggle('d-none');
+	endgameTitleRef.textContent = `Congratulations ${oGameData.playerName}!`;
+	gamefieldRef.classList.add('d-none');
+	endgameSectionRef.classList.remove('d-none');
 	endgameWrongGuessesRef.innerHTML = `${oGameData.wrongGuesses}`;
 	endgameTotalHelpRef.textContent = `${oGameData.totalHelp}`;
 
+	const NewGamePlayer: NewGamePlayer = {
+		playerName: oGameData.playerName,
+		wrongGuesses: oGameData.wrongGuesses,
+		helpNmbr: oGameData.totalHelp,
+	};
+
+	const highScore: NewGamePlayer[] = updateLocalStorage(NewGamePlayer);
+	setupHighScore(highScore);
+
 	playAgainBtnRef.addEventListener('click', () => {
 		oGameData.reset();
-		endgameSectionRef.classList.toggle('d-none');
-		initGame();
+		endgameSectionRef.classList.add('d-none');
+		welcomeSectionRef.classList.remove('d-none');
+		const highScoreListRef = document.querySelector(
+			'#highScoreList'
+		) as HTMLUListElement;
+		highScoreListRef.innerHTML = '';
+	});
+};
+
+const setupHighScore = (highScore: NewGamePlayer[]): void => {
+	const highScoreListRef = document.querySelector(
+		'#highScoreList'
+	) as HTMLUListElement;
+
+	highScore.forEach((score) => {
+		const listItemElement = document.createElement('li') as HTMLLIElement;
+		listItemElement.innerText = `Player: ${score.playerName} with ${score.wrongGuesses} errors and ${score.helpNmbr} helps`;
+		highScoreListRef.appendChild(listItemElement);
 	});
 };

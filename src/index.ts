@@ -1,6 +1,7 @@
 import type { Country, NewGamePlayer } from './interfaces/index';
 import { shuffleArray } from './utils/index.js';
-import { updateLocalStorage, oGameData } from './data/index.js';
+import { updateLocalStorage } from './data/localStorage.js';
+import { oGameData } from './data/index.js';
 
 // Referenser som behövs i koden
 const welcomeFormRef = document.querySelector(
@@ -8,16 +9,9 @@ const welcomeFormRef = document.querySelector(
 ) as HTMLFormElement;
 const gamefieldRef = document.querySelector('#gamefield') as HTMLElement;
 const welcomeSectionRef = document.querySelector('#welcomeBox') as HTMLElement;
-const flagRef = document.querySelector('#flagSrc') as HTMLImageElement;
-const answerInputRef = document.querySelector(
-	'#answerInput'
-) as HTMLInputElement;
 const answerFormRef = document.querySelector('#answerForm') as HTMLFormElement;
 const helpBtnRef = document.querySelector('#helpBtn') as HTMLButtonElement;
 const helpTextRef = document.querySelector('#helpText') as HTMLSpanElement;
-const questionNmbrRef = document.querySelector(
-	'#questionNmbr'
-) as HTMLSpanElement;
 
 // När spelaren trycker på playBtn
 welcomeFormRef.addEventListener('submit', (e: SubmitEvent) => {
@@ -49,6 +43,9 @@ answerFormRef.addEventListener('submit', (e: SubmitEvent) => {
 
 const checkAnswer = (): void => {
 	const errorMsgRef = document.querySelector('#errorMsg') as HTMLSpanElement;
+	const answerInputRef = document.querySelector(
+		'#answerInput'
+	) as HTMLInputElement;
 
 	// Vid rätt svar
 	if (
@@ -92,6 +89,11 @@ const giveHelp = (): void => {
 };
 
 const showQuestion = (gameCountries: Country[]): void => {
+	const questionNmbrRef = document.querySelector(
+		'#questionNmbr'
+	) as HTMLSpanElement;
+	const flagRef = document.querySelector('#flagSrc') as HTMLImageElement;
+
 	flagRef.src = gameCountries[0].flags.png;
 	questionNmbrRef.textContent = `${oGameData.questionNmbr}`;
 };

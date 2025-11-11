@@ -1,15 +1,13 @@
 import { shuffleArray } from './utils/index.js';
-import { updateLocalStorage, oGameData } from './data/index.js';
+import { updateLocalStorage } from './data/localStorage.js';
+import { oGameData } from './data/index.js';
 // Referenser som behövs i koden
 const welcomeFormRef = document.querySelector('#welcomeForm');
 const gamefieldRef = document.querySelector('#gamefield');
 const welcomeSectionRef = document.querySelector('#welcomeBox');
-const flagRef = document.querySelector('#flagSrc');
-const answerInputRef = document.querySelector('#answerInput');
 const answerFormRef = document.querySelector('#answerForm');
 const helpBtnRef = document.querySelector('#helpBtn');
 const helpTextRef = document.querySelector('#helpText');
-const questionNmbrRef = document.querySelector('#questionNmbr');
 // När spelaren trycker på playBtn
 welcomeFormRef.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -31,6 +29,7 @@ answerFormRef.addEventListener('submit', (e) => {
 });
 const checkAnswer = () => {
     const errorMsgRef = document.querySelector('#errorMsg');
+    const answerInputRef = document.querySelector('#answerInput');
     // Vid rätt svar
     if (answerInputRef.value.toLowerCase() ===
         oGameData.gameCountries[0].name.common.toLowerCase()) {
@@ -65,6 +64,8 @@ const giveHelp = () => {
     }
 };
 const showQuestion = (gameCountries) => {
+    const questionNmbrRef = document.querySelector('#questionNmbr');
+    const flagRef = document.querySelector('#flagSrc');
     flagRef.src = gameCountries[0].flags.png;
     questionNmbrRef.textContent = `${oGameData.questionNmbr}`;
 };

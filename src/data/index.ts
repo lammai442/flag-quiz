@@ -1,7 +1,6 @@
 import type { NewGamePlayer, GameData } from '../interfaces/index';
-import { sortingHighScore } from '../utils/index.js';
 
-const highScoreMockup: NewGamePlayer[] = [
+export const highScoreMockup: NewGamePlayer[] = [
 	{
 		playerName: 'Kalle',
 		wrongGuesses: 2,
@@ -29,23 +28,23 @@ const highScoreMockup: NewGamePlayer[] = [
 	},
 ];
 
-export const updateLocalStorage = (
-	newGamePlayer: NewGamePlayer
-): NewGamePlayer[] => {
-	const highScoreData: NewGamePlayer[] = JSON.parse(
-		localStorage.getItem('highScore') || JSON.stringify(highScoreMockup)
-	);
+// export const updateLocalStorage = (
+// 	newGamePlayer: NewGamePlayer
+// ): NewGamePlayer[] => {
+// 	const highScoreData: NewGamePlayer[] = JSON.parse(
+// 		localStorage.getItem('highScore') || JSON.stringify(highScoreMockup)
+// 	);
 
-	highScoreData.push(newGamePlayer);
+// 	highScoreData.push(newGamePlayer);
 
-	sortingHighScore(highScoreData);
+// 	sortingHighScore(highScoreData);
 
-	const topFive = highScoreData.slice(0, 5);
+// 	const topFive = highScoreData.slice(0, 5);
 
-	localStorage.setItem('highScore', JSON.stringify(topFive));
+// 	localStorage.setItem('highScore', JSON.stringify(topFive));
 
-	return topFive;
-};
+// 	return topFive;
+// };
 
 export const oGameData: GameData = {
 	nmbrOfCountries: 10,

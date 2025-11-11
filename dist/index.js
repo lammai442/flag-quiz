@@ -9,7 +9,7 @@ const answerInputRef = document.querySelector('#answerInput');
 const answerFormRef = document.querySelector('#answerForm');
 const helpBtnRef = document.querySelector('#helpBtn');
 const helpTextRef = document.querySelector('#helpText');
-// När användaren trycker på playBtn
+// När spelaren trycker på playBtn
 welcomeFormRef.addEventListener('submit', (e) => {
     e.preventDefault();
     initGame();
@@ -23,6 +23,7 @@ const initGame = async () => {
     await generateGameCountries();
     showQuestion(oGameData.gameCountries);
 };
+// Lyssnare när spelaren skickar in svaret
 answerFormRef.addEventListener('submit', (e) => {
     e.preventDefault();
     checkAnswer();
@@ -49,6 +50,7 @@ const checkAnswer = () => {
         oGameData.wrongGuesses += 1;
     }
 };
+// När spelaren väljer att trycka på helpBtn
 helpBtnRef.addEventListener('click', () => {
     giveHelp();
 });
@@ -96,7 +98,7 @@ const endGame = () => {
     const NewGamePlayer = {
         playerName: oGameData.playerName,
         wrongGuesses: oGameData.wrongGuesses,
-        helpNmbr: oGameData.totalHelp,
+        totalHelp: oGameData.totalHelp,
     };
     const highScore = updateLocalStorage(NewGamePlayer);
     setupHighScore(highScore);
@@ -112,7 +114,7 @@ const setupHighScore = (highScore) => {
     const highScoreListRef = document.querySelector('#highScoreList');
     highScore.forEach((score) => {
         const listItemElement = document.createElement('li');
-        listItemElement.innerText = `Player: ${score.playerName} with ${score.wrongGuesses} wrong guesses and ${score.helpNmbr} helps`;
+        listItemElement.innerHTML = `Player: <strong>${score.playerName}</strong> with <strong>${score.wrongGuesses}</strong> wrong guesses and <strong>${score.totalHelp}</strong> helps`;
         highScoreListRef.appendChild(listItemElement);
     });
 };

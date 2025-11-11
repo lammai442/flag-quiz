@@ -21,5 +21,5 @@ export interface Country {
 export interface NewGamePlayer {
 	playerName: string;
 	wrongGuesses: number;
-	helpNmbr: number;
+	totalHelp: number;
 }

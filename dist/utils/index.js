@@ -6,3 +6,15 @@ export const shuffleArray = (array) => {
     }
     return arr;
 };
+/* ===== AI-HJÄLP ===== */
+// Fått hjälp med att sortera så att den kontrollerar errorNmbr först och därefter totalHelp
+export const sortingHighScore = (highScore) => {
+    highScore.sort((a, b) => {
+        // Sortera först på errorNmbr (färre fel först)
+        if (a.wrongGuesses !== b.wrongGuesses) {
+            return a.wrongGuesses - b.wrongGuesses;
+        }
+        // Om lika många fel, sortera på totalHelp (färre hjälp först)
+        return a.totalHelp - b.totalHelp;
+    });
+};

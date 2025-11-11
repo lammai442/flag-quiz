@@ -19,7 +19,6 @@
 	--color-btn-tertiary: #67bbef;
 	--color-btn-tertiary-hover: #35627b;
 
-	--color-success: #3a7d44;
 	--color-error: #d62828;
 }
 
@@ -110,7 +109,7 @@ button:active {
 }
 
 .gamefield__error-msg {
-	color: red;
+	color: var(--color-error);
 }
 
 .gamefield__input {
@@ -153,11 +152,16 @@ button:active {
 .endgame__top-box {
 	margin-bottom: 1rem;
 	text-align: center;
+	padding: 0.5rem 0;
+	border-radius: 10px;
+	background-color: var(--color-btn-tertiary);
+	box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.4);
 }
 
 .high-score__title {
 	text-align: center;
 	margin-bottom: 0.5rem;
+	text-decoration: underline;
 }
 
 .endgame__trophy {

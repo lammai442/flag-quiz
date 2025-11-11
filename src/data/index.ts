@@ -1,10 +1,39 @@
 import type { NewGamePlayer, GameData } from '../interfaces/index';
+import { sortingHighScore } from '../utils/index.js';
+
+const highScoreMockup: NewGamePlayer[] = [
+	{
+		playerName: 'Kalle',
+		wrongGuesses: 2,
+		totalHelp: 4,
+	},
+	{
+		playerName: 'Jenny',
+		wrongGuesses: 0,
+		totalHelp: 2,
+	},
+	{
+		playerName: 'Viktor',
+		wrongGuesses: 4,
+		totalHelp: 10,
+	},
+	{
+		playerName: 'Lam',
+		wrongGuesses: 0,
+		totalHelp: 1,
+	},
+	{
+		playerName: 'Lena',
+		wrongGuesses: 2,
+		totalHelp: 8,
+	},
+];
 
 export const updateLocalStorage = (
 	newGamePlayer: NewGamePlayer
 ): NewGamePlayer[] => {
 	const highScoreData: NewGamePlayer[] = JSON.parse(
-		localStorage.getItem('highScore') || '[]'
+		localStorage.getItem('highScore') || JSON.stringify(highScoreMockup)
 	);
 
 	highScoreData.push(newGamePlayer);
@@ -19,7 +48,7 @@ export const updateLocalStorage = (
 };
 
 export const oGameData: GameData = {
-	nmbrOfCountries: 1,
+	nmbrOfCountries: 10,
 	gameCountries: [],
 	playerName: '',
 	wrongGuesses: 0,
@@ -32,17 +61,4 @@ export const oGameData: GameData = {
 		this.helpNmbr = 1;
 		this.totalHelp = 0;
 	},
-};
-
-/* ===== AI-HJÄLP ===== */
-// Fått hjälp med att sortera så att den kontrollerar errorNmbr först och därefter helpNmbr
-const sortingHighScore = (highScore: NewGamePlayer[]) => {
-	highScore.sort((a, b) => {
-		// Sortera först på errorNmbr (färre fel först)
-		if (a.wrongGuesses !== b.wrongGuesses) {
-			return a.wrongGuesses - b.wrongGuesses;
-		}
-		// Om lika många fel, sortera på helpNmbr (färre hjälp först)
-		return a.helpNmbr - b.helpNmbr;
-	});
 };

@@ -18,11 +18,12 @@
 				<h1 class="welcome__title">Flag quiz - Europe edition</h1>
 				<p class="welcome__paragraph">
 					Think you know your flags? Prove it!<br />
-					Guess 10 European countries and climb the scoreboard! 🏆
+					Guess <strong>10</strong> European country flags and climb
+					the scoreboard! 🏆
 				</p>
 				<form class="form" id="welcomeForm">
 					<label>
-						Player name:
+						<strong>Player name:</strong>
 						<input
 							class="form__input"
 							type="text"
@@ -30,7 +31,7 @@
 							required />
 					</label>
 					<button class="form__play-btn" id="formPlayBtn">
-						Lets play
+						START QUIZ
 					</button>
 				</form>
 			</section>
@@ -48,7 +49,7 @@
 					<p id="helpText">Help?</p>
 				</section>
 				<button class="gamefield__help-btn" id="helpBtn">
-					I want a sneek peek!
+					I need a sneek peek!
 				</button>
 				<form id="answerForm">
 					<input
@@ -73,11 +74,15 @@
 					<p>You are a master of flags!</p>
 					<p>
 						Counts of wrong guesses:
-						<span id="endgameWrongGuesses">0</span>
+						<span class="endgame_wrong-guesses"
+							><strong id="endgameWrongGuesses">0</strong></span
+						>
 					</p>
 					<p>
 						Counts of total help:
-						<span id="endgameTotalHelp">0</span>
+						<span class="endgame__total-help"
+							><strong id="endgameTotalHelp">0</strong></span
+						>
 					</p>
 				</section>
 				<span class="endgame__trophy">🏆</span>
@@ -86,7 +91,7 @@
 					<ol class="high-score__list" id="highScoreList"></ol>
 				</section>
 				<button class="high-score__play-again-btn" id="playAgainBtn">
-					Play again?
+					PLAY AGAIN?
 				</button>
 			</section>
 		</main>

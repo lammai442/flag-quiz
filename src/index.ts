@@ -15,6 +15,9 @@ const answerInputRef = document.querySelector(
 const answerFormRef = document.querySelector('#answerForm') as HTMLFormElement;
 const helpBtnRef = document.querySelector('#helpBtn') as HTMLButtonElement;
 const helpTextRef = document.querySelector('#helpText') as HTMLSpanElement;
+const questionNmbrRef = document.querySelector(
+	'#questionNmbr'
+) as HTMLSpanElement;
 
 // När spelaren trycker på playBtn
 welcomeFormRef.addEventListener('submit', (e: SubmitEvent) => {
@@ -57,6 +60,7 @@ const checkAnswer = (): void => {
 		answerInputRef.value = '';
 		oGameData.helpNmbr = 1;
 		helpTextRef.textContent = 'Help?';
+		oGameData.questionNmbr++;
 
 		if (oGameData.gameCountries.length === 0) {
 			endGame();
@@ -89,6 +93,7 @@ const giveHelp = (): void => {
 
 const showQuestion = (gameCountries: Country[]): void => {
 	flagRef.src = gameCountries[0].flags.png;
+	questionNmbrRef.textContent = `${oGameData.questionNmbr}`;
 };
 
 const fetchCountries = async (): Promise<Country[]> => {

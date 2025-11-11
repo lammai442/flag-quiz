@@ -49,6 +49,7 @@ export const updateLocalStorage = (
 
 export const oGameData: GameData = {
 	nmbrOfCountries: 10,
+	questionNmbr: 1,
 	gameCountries: [],
 	playerName: '',
 	wrongGuesses: 0,
@@ -56,6 +57,7 @@ export const oGameData: GameData = {
 	totalHelp: 0,
 	reset() {
 		this.gameCountries = [];
+		this.questionNmbr = 1;
 		this.playerName = '';
 		this.wrongGuesses = 0;
 		this.helpNmbr = 1;

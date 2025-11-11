@@ -1,5 +1,6 @@
 export interface GameData {
 	gameCountries: Country[];
+	questionNmbr: number;
 	playerName: string;
 	wrongGuesses: number;
 	nmbrOfCountries: number;

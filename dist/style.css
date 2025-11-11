@@ -92,6 +92,11 @@ button:active {
 }
 
 /* GAMEFIELD */
+.gamefield__counting {
+	font-size: 1.5rem;
+	font-weight: 600;
+}
+
 .gamefield__box {
 	background-color: var(--color-bg-primary);
 	padding: 2rem;

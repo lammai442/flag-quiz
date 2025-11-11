@@ -113,10 +113,6 @@ button:active {
 	color: red;
 }
 
-.d-none {
-	display: none;
-}
-
 .gamefield__input {
 	padding: 0.3rem;
 	border-radius: 5px;
@@ -164,6 +160,12 @@ button:active {
 	margin-bottom: 0.5rem;
 }
 
+.endgame__trophy {
+	align-self: center;
+	font-size: 1.5rem;
+	margin-bottom: 1rem;
+}
+
 .high-score__list {
 	display: flex;
 	flex-direction: column;
@@ -178,4 +180,8 @@ button:active {
 	cursor: pointer;
 	border-radius: 10px;
 	margin-top: 1rem;
+}
+
+.d-none {
+	display: none;
 }

@@ -128,9 +128,9 @@ const endGame = () => {
 		'#endgameTitle'
 	) as HTMLHeadingElement;
 
-	endgameTitleRef.textContent = `Congratulations ${oGameData.playerName}!`;
 	gamefieldRef.classList.add('d-none');
 	endgameSectionRef.classList.remove('d-none');
+	endgameTitleRef.textContent = `Congratulations ${oGameData.playerName}!`;
 	endgameWrongGuessesRef.innerHTML = `${oGameData.wrongGuesses}`;
 	endgameTotalHelpRef.textContent = `${oGameData.totalHelp}`;
 
@@ -161,7 +161,7 @@ const setupHighScore = (highScore: NewGamePlayer[]): void => {
 
 	highScore.forEach((score) => {
 		const listItemElement = document.createElement('li') as HTMLLIElement;
-		listItemElement.innerText = `Player: ${score.playerName} with ${score.wrongGuesses} errors and ${score.helpNmbr} helps`;
+		listItemElement.innerText = `Player: ${score.playerName} with ${score.wrongGuesses} wrong guesses and ${score.helpNmbr} helps`;
 		highScoreListRef.appendChild(listItemElement);
 	});
 };

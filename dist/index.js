@@ -88,9 +88,9 @@ const endGame = () => {
     const endgameSectionRef = document.querySelector('.endgame');
     const playAgainBtnRef = document.querySelector('#playAgainBtn');
     const endgameTitleRef = document.querySelector('#endgameTitle');
-    endgameTitleRef.textContent = `Congratulations ${oGameData.playerName}!`;
     gamefieldRef.classList.add('d-none');
     endgameSectionRef.classList.remove('d-none');
+    endgameTitleRef.textContent = `Congratulations ${oGameData.playerName}!`;
     endgameWrongGuessesRef.innerHTML = `${oGameData.wrongGuesses}`;
     endgameTotalHelpRef.textContent = `${oGameData.totalHelp}`;
     const NewGamePlayer = {
@@ -112,7 +112,7 @@ const setupHighScore = (highScore) => {
     const highScoreListRef = document.querySelector('#highScoreList');
     highScore.forEach((score) => {
         const listItemElement = document.createElement('li');
-        listItemElement.innerText = `Player: ${score.playerName} with ${score.wrongGuesses} errors and ${score.helpNmbr} helps`;
+        listItemElement.innerText = `Player: ${score.playerName} with ${score.wrongGuesses} wrong guesses and ${score.helpNmbr} helps`;
         highScoreListRef.appendChild(listItemElement);
     });
 };

@@ -1,26 +1,26 @@
 # Flag Quiz – Europe Edition
 
-Ett spel där du kan testa dina kunskaper om Europas flaggor.
-Spelet hämtar slumpmässiga europeiska länder via REST Countries API och utmanar dig att gissa rätt land baserat på flaggan som visas.
+A game where you can test your knowledge of European flags.  
+The game fetches random European countries via the REST Countries API and challenges you to guess the correct country based on the displayed flag.
 
-## Funktioner
+## Features
 
--   Slumpmässigt utvalda flaggor
--   Poängräkning baserad på antal felgissningar
--   Möjlighet att ta hjälp om du fastnar
--   Highscore-lista som sparas i localStorage
+-   Randomly selected flags
+-   Score tracking based on the number of wrong guesses
+-   Option to get help if you get stuck
+-   High score list saved in localStorage
 
-## Så fungerar spelet
+## How the Game Works
 
-1. En flagga visas på skärmen.
-2. Du skriver in vilket land du tror det är.
-3. Fel svar ger minuspoäng.
-4. Du kan ta hjälp, men det påverkar poängen.
-5. När spelet är slut sparas ditt resultat i highscore-listan.
+1. A flag is displayed on the screen.
+2. You type in which country you think it is.
+3. Wrong answers increase your error count.
+4. You can ask for help, but it affects your score.
+5. When the game ends, your result is saved to the high score list.
 
-## Tekniker
+## Technologies
 
--   HTML för struktur
--   CSS för layout och design
--   TypeScript för spel­logik
--   localStorage för att spara highscore
+-   HTML for structure
+-   CSS for layout and design
+-   TypeScript for game logic
+-   localStorage for storing high scores

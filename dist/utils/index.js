@@ -18,3 +18,11 @@ export const sortingHighScore = (highScore) => {
         return a.totalHelp - b.totalHelp;
     });
 };
+export const generatPlayerId = () => {
+    let playerId = 'p';
+    for (let i = 0; i < 5; i++) {
+        const randomNmbr = Math.floor(Math.random() * 10 + 1);
+        playerId += randomNmbr;
+    }
+    return playerId;
+};

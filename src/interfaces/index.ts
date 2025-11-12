@@ -6,6 +6,7 @@ export interface GameData {
 	nmbrOfCountries: number;
 	helpNmbr: number;
 	totalHelp: number;
+	playerId: string;
 	reset(): void;
 }
 
@@ -23,4 +24,5 @@ export interface NewGamePlayer {
 	playerName: string;
 	wrongGuesses: number;
 	totalHelp: number;
+	playerId: string;
 }

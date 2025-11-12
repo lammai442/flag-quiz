@@ -10,7 +10,7 @@
 	--color-bg-section: #edf3e6;
 
 	--color-text: #1d2b1f;
-	--color-text-light: #ffffff;
+	--color-text-highscore-highlight: #ffffff;
 
 	--color-btn-primary: #5b8c38;
 	--color-btn-primary-hover: #4e7a2f;
@@ -151,7 +151,10 @@ button:active {
 }
 
 .endgame__title {
-	margin-bottom: 0.4rem;
+}
+
+.endgame__subtitle {
+	margin: 0.4rem 0;
 }
 
 .endgame__top-box {
@@ -193,4 +196,8 @@ button:active {
 
 .d-none {
 	display: none;
+}
+
+.active-player {
+	color: var(--color-text-highscore-highlight);
 }

@@ -103,6 +103,7 @@ const endGame = () => {
         playerName: oGameData.playerName,
         wrongGuesses: oGameData.wrongGuesses,
         totalHelp: oGameData.totalHelp,
+        playerId: oGameData.playerId,
     };
     const highScore = updateLocalStorage(NewGamePlayer);
     setupHighScore(highScore);
@@ -116,9 +117,19 @@ const endGame = () => {
 };
 const setupHighScore = (highScore) => {
     const highScoreListRef = document.querySelector('#highScoreList');
+    const endgameSubtitleRef = document.querySelector('#endgameSubtitle');
     highScore.forEach((score) => {
         const listItemElement = document.createElement('li');
         listItemElement.innerHTML = `Player: <strong>${score.playerName}</strong> with <strong>${score.wrongGuesses}</strong> wrong guesses and <strong>${score.totalHelp}</strong> helps`;
+        // Om spelaren aktiv är med i highscore ska den färgläggas
+        if (score.playerId === oGameData.playerId) {
+            endgameSubtitleRef.innerHTML = 'Good job, you made it to top 5!';
+            listItemElement.classList.add('active-player');
+        }
+        else {
+            endgameSubtitleRef.innerHTML =
+                'Not top 5 this time but you get it next time!';
+        }
         highScoreListRef.appendChild(listItemElement);
     });
 };

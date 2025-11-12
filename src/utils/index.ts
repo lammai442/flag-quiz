@@ -21,3 +21,15 @@ export const sortingHighScore = (highScore: NewGamePlayer[]) => {
 		return a.totalHelp - b.totalHelp;
 	});
 };
+
+export const generatPlayerId = (): string => {
+	let playerId: string = 'p';
+
+	for (let i = 0; i < 5; i++) {
+		const randomNmbr: number = Math.floor(Math.random() * 10 + 1);
+
+		playerId += randomNmbr;
+	}
+
+	return playerId;
+};

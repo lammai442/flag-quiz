@@ -1,38 +1,33 @@
+import { generatPlayerId } from '../utils/index.js';
 export const highScoreMockup = [
     {
+        playerId: 'p12345',
         playerName: 'Kalle',
         wrongGuesses: 2,
         totalHelp: 4,
     },
     {
-        playerName: 'Jenny',
-        wrongGuesses: 0,
-        totalHelp: 2,
-    },
-    {
+        playerId: 'p21464',
         playerName: 'Viktor',
         wrongGuesses: 4,
         totalHelp: 10,
     },
     {
+        playerId: 'p54613',
         playerName: 'Lam',
         wrongGuesses: 0,
         totalHelp: 1,
     },
-    {
-        playerName: 'Lena',
-        wrongGuesses: 2,
-        totalHelp: 8,
-    },
 ];
 export const oGameData = {
     nmbrOfCountries: 10,
-    questionNmbr: 1,
     gameCountries: [],
+    questionNmbr: 1,
     playerName: '',
     wrongGuesses: 0,
     helpNmbr: 1,
     totalHelp: 0,
+    playerId: generatPlayerId(),
     reset() {
         this.gameCountries = [];
         this.questionNmbr = 1;
@@ -40,5 +35,6 @@ export const oGameData = {
         this.wrongGuesses = 0;
         this.helpNmbr = 1;
         this.totalHelp = 0;
+        this.playerId = generatPlayerId();
     },
 };

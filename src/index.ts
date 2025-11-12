@@ -104,30 +104,6 @@ const showQuestion = (gameCountries: Country[]): void => {
 	questionNmbrRef.textContent = `${oGameData.questionNmbr}`;
 };
 
-// const fetchCountries = async (): Promise<Country[]> => {
-// 	try {
-// 		const response: Response = await fetch(
-// 			'https://restcountries.com/v3.1/region/europe'
-// 		);
-// 		if (!response.ok) {
-// 			throw new Error('Failed to fetch countries');
-// 		}
-// 		const data = (await response.json()) as Country[];
-
-// 		return data;
-// 	} catch (error) {
-// 		console.log(error);
-// 		return [];
-// 	}
-// };
-
-// const generateGameCountries = async (): Promise<void> => {
-// 	const countryList: Country[] = await fetchCountries();
-
-// 	const shuffledData: Country[] = shuffleArray(countryList);
-// 	oGameData.gameCountries = shuffledData.slice(0, oGameData.nmbrOfCountries);
-// };
-
 const endGame = () => {
 	const endgameWrongGuessesRef = document.querySelector(
 		'#endgameWrongGuesses'

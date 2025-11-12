@@ -20,7 +20,7 @@ export const highScoreMockup = [
     },
 ];
 export const oGameData = {
-    nmbrOfCountries: 1,
+    nmbrOfCountries: 10,
     gameCountries: [],
     questionNmbr: 1,
     playerName: '',

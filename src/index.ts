@@ -1,7 +1,8 @@
 import type { Country, NewGamePlayer } from './interfaces/index';
-import { shuffleArray } from './utils/index.js';
+// import { shuffleArray } from './utils/index.js';
 import { updateLocalStorage } from './data/localStorage.js';
 import { oGameData } from './data/index.js';
+import { generateGameCountries } from './services/index.js';
 
 // Referenser som behövs i koden
 const welcomeFormRef = document.querySelector(
@@ -103,29 +104,29 @@ const showQuestion = (gameCountries: Country[]): void => {
 	questionNmbrRef.textContent = `${oGameData.questionNmbr}`;
 };
 
-const fetchCountries = async (): Promise<Country[]> => {
-	try {
-		const response: Response = await fetch(
-			'https://restcountries.com/v3.1/region/europe'
-		);
-		if (!response.ok) {
-			throw new Error('Failed to fetch countries');
-		}
-		const data = (await response.json()) as Country[];
+// const fetchCountries = async (): Promise<Country[]> => {
+// 	try {
+// 		const response: Response = await fetch(
+// 			'https://restcountries.com/v3.1/region/europe'
+// 		);
+// 		if (!response.ok) {
+// 			throw new Error('Failed to fetch countries');
+// 		}
+// 		const data = (await response.json()) as Country[];
 
-		return data;
-	} catch (error) {
-		console.log(error);
-		return [];
-	}
-};
+// 		return data;
+// 	} catch (error) {
+// 		console.log(error);
+// 		return [];
+// 	}
+// };
 
-const generateGameCountries = async (): Promise<void> => {
-	const countryList: Country[] = await fetchCountries();
+// const generateGameCountries = async (): Promise<void> => {
+// 	const countryList: Country[] = await fetchCountries();
 
-	const shuffledData: Country[] = shuffleArray(countryList);
-	oGameData.gameCountries = shuffledData.slice(0, oGameData.nmbrOfCountries);
-};
+// 	const shuffledData: Country[] = shuffleArray(countryList);
+// 	oGameData.gameCountries = shuffledData.slice(0, oGameData.nmbrOfCountries);
+// };
 
 const endGame = () => {
 	const endgameWrongGuessesRef = document.querySelector(
@@ -178,7 +179,7 @@ const setupHighScore = (highScore: NewGamePlayer[]): void => {
 	) as HTMLParagraphElement;
 
 	// Kontroll om nuvarande spelare är med i highscore
-	const isActivePlayerInTop5 = highScore.some(
+	const isActivePlayerInTop5: boolean = highScore.some(
 		(score) => score.playerId === oGameData.playerId
 	);
 

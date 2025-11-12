@@ -24,11 +24,16 @@ const initGame = async (): Promise<void> => {
 	welcomeSectionRef.classList.add('d-none');
 	gamefieldRef.classList.remove('d-none');
 
+	const gameFieldPlayerRef = document.querySelector(
+		'#gameFieldPlayer'
+	) as HTMLHeadingElement;
+
 	const playerInputRef = document.querySelector(
 		'#playerInput'
 	) as HTMLInputElement;
 
 	oGameData.playerName = playerInputRef.value;
+	gameFieldPlayerRef.innerHTML = `Player: ${oGameData.playerName}`;
 
 	await generateGameCountries();
 
@@ -172,17 +177,25 @@ const setupHighScore = (highScore: NewGamePlayer[]): void => {
 		'#endgameSubtitle'
 	) as HTMLParagraphElement;
 
+	// Kontroll om nuvarande spelare är med i highscore
+	const isActivePlayerInTop5 = highScore.some(
+		(score) => score.playerId === oGameData.playerId
+	);
+
+	if (isActivePlayerInTop5) {
+		endgameSubtitleRef.innerHTML = 'Good job, you made it to top 5!';
+	} else {
+		endgameSubtitleRef.innerHTML =
+			'Not top 5 this time but you get it next time!';
+	}
+
 	highScore.forEach((score) => {
 		const listItemElement = document.createElement('li') as HTMLLIElement;
 		listItemElement.innerHTML = `Player: <strong>${score.playerName}</strong> with <strong>${score.wrongGuesses}</strong> wrong guesses and <strong>${score.totalHelp}</strong> helps`;
 
 		// Om spelaren aktiv är med i highscore ska den färgläggas
 		if (score.playerId === oGameData.playerId) {
-			endgameSubtitleRef.innerHTML = 'Good job, you made it to top 5!';
 			listItemElement.classList.add('active-player');
-		} else {
-			endgameSubtitleRef.innerHTML =
-				'Not top 5 this time but you get it next time!';
 		}
 
 		highScoreListRef.appendChild(listItemElement);

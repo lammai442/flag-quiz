@@ -23,7 +23,7 @@ export const highScoreMockup: NewGamePlayer[] = [
 ];
 
 export const oGameData: GameData = {
-	nmbrOfCountries: 10,
+	nmbrOfCountries: 1,
 	gameCountries: [],
 	questionNmbr: 1,
 	playerName: '',
